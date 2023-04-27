@@ -1,0 +1,612 @@
+ /* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	background-color: #fffef8;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/** end reset css**/
+body {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+}
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0
+}
+section {
+	margin: 50px 0
+}
+
+h1{
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C
+}
+
+h1 > span {
+	font-family: 'Work Sans';
+	font-size:10px;
+	letter-spacing: 0.1em;
+;
+}
+
+h2{
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
+}
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+
+}
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+li:hover {
+	color: #B1663C;
+}
+#introduction {
+	display: flex;
+	align-items: center;
+}
+#introduction figure {
+	flex: 1
+}
+#introduction img {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#introduction article {
+	flex: 1
+}
+#introduction h2 {
+	margin-bottom: 1em;
+}
+
+#introduction p {
+	margin-bottom: 0.5em;
+}
+#portfolio h2, #portfolio a {
+	text-align: center;
+	margin-bottom: 1em;
+}
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery img {
+	width: 100%;
+
+}
+#contact {
+	width: 50%;
+margin: auto;
+}
+#contact > * {
+	text-align: center;
+
+}
+#contact h2{
+	margin-bottom: 20px;
+}
+#contact form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#contact input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#contact label {
+	margin: 2em 0 1em 0;
+}
+#contact textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em
+}
+
+.filterContent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 12px;
+	margin-bottom: 40px;
+}
+
+.filterContent a {
+	border: #1d6154 1px solid;
+	border-radius: 60px;
+	padding: 12px 20px;
+	font-size: 17px;
+	font-weight: 700;
+	color:#1D6154;
+	font-family: "syne";
+	cursor: pointer;
+}
+
+.filterContent a:hover, .filterContent a.active{
+	background-color: #1D6154;
+	color: #fff;
+}
+
+header, main {
+	margin: 0;
+}
+
+header {
+	
+	padding: 50px 150px;
+}
+
+main section {
+	margin: 0;
+	padding: 50px 0;
+}
+
+.loginmain {
+	padding-bottom: 355px;
+}
+
+footer {
+	height: 60px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.btn_submit {
+	cursor:  pointer;
+}
+
+form p {
+	font-family: 'Work Sans';
+	text-align: center;
+	text-decoration-line: underline;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.portfolio_header {
+	display: flex;
+	justify-content: center;
+}
+
+.edit_link {
+	text-align:center;
+	text-decoration: none;
+	color: inherit;
+	margin-left: 20px;
+	padding: 10px 10px;
+}
+
+i {
+	font-size: 20px;
+}
+
+/* Modal */
+.modal {
+	position: fixed;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Conteneur modal */
+.modal_wrapper{
+	width: 630px;
+	height: 680px;
+	background-color: #fff;
+	opacity: 1;
+	text-align: center;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	overflow: auto;
+	border-radius: 10px;
+	display: none;
+	font-family: 'Work Sans';
+	font-style: normal;
+	position: relative;
+}
+
+/* Titre modal */
+.modal_wrapper h1 {
+	font-family: 'Work Sans';
+	margin-top: 60px;
+	margin-bottom: 35px;
+	color: #000;
+	font-size: 26px;
+	font-weight: 400;
+}
+
+/* Bouton de fermeture modal */
+.js-close-modal {
+	font-size: 15px;
+	position: absolute;
+	right: 2rem;
+	top: 2rem;
+}
+
+.js-close-modal:hover {
+	cursor: pointer;
+}
+
+/* Galerie modal */
+.modal_gallery{
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	margin-bottom: 35px;
+	align-items: center;
+	padding: 0 105px;
+	width: 420px;
+}
+
+.modal_gallery img {
+	width: 100%;
+	height: 100%;
+}
+
+.content_img {
+	text-align: left;
+	position: relative;
+	margin: 6px 4px;
+}
+
+/* Icônes de contenu */
+.content-icons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 17px;
+	width: 17px;
+	position: absolute;
+	left: 34px;
+	bottom: 95px;
+	background-color: #000;
+	border-radius: 2px;
+}
+
+/* Suppression du contenu */
+.content_delete{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 17px;
+	width: 17px;
+	position: absolute;
+	left: 55px;
+	bottom: 95px;
+	background-color: #000;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.modal_gallery i{
+	font-size: 11px;
+	color: #fff;
+}
+
+/* Ligne de séparation */
+.modal_wrapper hr{
+	width: 100%;
+	border: 1px solid #B3B3B3;
+	margin-bottom: 20px;
+	margin-top: 30px;
+}
+
+/* Boutons du bas de page */
+.btn-footer{
+	display: flex;
+	flex-direction: column;
+}
+
+/* Styles pour le bouton d'ajout */
+.btn_add {
+	font-family: 'syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 1em auto;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+	width: 237px;
+	height: 36px;
+	cursor: pointer;
+}
+
+/* Styles pour le bouton de suppression */
+.btn_delete {
+	color: red;
+	border: none;
+	font-family: 'syne';
+	font-weight: 400;
+	background-color: white;
+	cursor: pointer;
+	margin-top: 5px;
+}
+
+/* Styles pour le formulaire dans la modal */
+.modal_wrapper form {
+	text-align: left;
+	margin: 30px 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.modal_wrapper input,
+.modal_wrapper select,
+.modal_wrapper textarea {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.modal_wrapper label {
+	margin: 25px 0 10px;
+}
+
+/* Styles pour les éléments d'authentification cachés */
+.is_auth,
+.is_auth_flex {
+	display: none;
+}
+
+/* Styles pour le conteneur */
+.container {
+	margin: 0;
+	font-family: sans-serif;
+}
+
+.container label {
+	display: block;
+	max-width: 200px;
+	margin: 0 auto 15px;
+	text-align: center;
+	word-wrap: break-word;
+	color: #1a4756;
+}
+
+.container #file {
+	display: inline;
+	opacity: 0;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+/* Styles pour la barre d'édition */
+.edit_bar {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	background-color: #000;
+	padding: 10px;
+	justify-content: center;
+	gap: 20px;
+}
+
+.btn_edition,
+.publish_button {
+	cursor: pointer;
+}
+
+.btn_edition {
+	font-weight: 400;
+	font-size: 16px;
+	background: #000;
+	color: #fff;
+	border: none;
+}
+
+.publish_button {
+	padding: 10px;
+	border-radius: 60px;
+	font-weight: 500;
+	font-size: 14px;
+	border-style: none;
+}
+
+/* Styles pour l'introduction */
+#introduction a {
+	text-align: left;
+	margin: 0;
+}
+
+#introduction article a {
+	padding: 0;
+	line-height: 36px;
+}
+
+#introduction figure a {
+	padding-left: 10%;
+}
+
+/* Styles pour les champs de saisie dans la modal */
+.modal_wrapper .input {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 169px;
+	width: 420px;
+	background: #E8F1F7;
+}
+
+.modal_wrapper .container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.container .label {
+	font-weight: 400;
+	font-size: 26px;
+	margin-bottom: 36px;
+	margin-top: 35px;
+}
+
+.input i {
+	font-size: 65px;
+	border-radius: 3px;
+	color: #B9C5CC;
+}
+
+.input button {
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	background: #cbd6dc;
+	border: none;
+	margin-top: 21px;
+	margin-bottom: 7px;
+	cursor: pointer;
+	color: #306685;
+	font-weight: 500;
+	font-size: 14px;
+}
+
+/* Styles pour le bouton principal du conteneur modal */
+.modal_wrapper > button {
+	font-family: 'syne';
+	border-radius: 60px;
+	background: #a7a7a7;
+	border: none;
+	width: 237px;
+	height: 40px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 14px;
+}
+
+.modal_wrapper > button:hover {
+	background: #1D6154;
+	cursor: pointer;
+}
+
+/* Styles pour les paragraphes du conteneur modal */
+.modal_wrapper p {
+	text-decoration: none;
+	color: #444444;
+	font-weight: 400;
+	font-size: 10px;
+}
+
+/* Styles pour la flèche de retour en arrière */
+span.back_arrow {
+	position: relative;
+	right: 16.5rem;
+	top: 30px;
+	cursor: pointer;
+}
+
+/* Styles pour le formulaire d'ajout de projet */
+#form_add_project {
+	padding: 0 105px;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	width: 420px;
+}
+
+/* Styles pour la ligne de séparation dans le pied de page de la modal */
+.modal-footer hr {
+	width: 420px;
+}
+
+/* Styles pour les liens */
+a {
+	text-decoration: none;
+	color: inherit;
+}

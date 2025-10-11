@@ -1,23 +1,28 @@
-// Fonction pour ajouter un projet dans la galerie
+// Gère images avec URL absolue ou relative
 const addProject = (title, imageUrl) => {
-    const galleryContent = document.querySelector(".gallery");
-    const newFigure = document.createElement("figure");
-    const newImage = document.createElement("img");
-    const newCaption = document.createElement("figcaption");
-    
-    newImage.src = imageUrl;
-    newCaption.textContent = title;
-    
-    newFigure.appendChild(newImage);
-    newFigure.appendChild(newCaption);
-    galleryContent.appendChild(newFigure);
+  const galleryContent = document.querySelector(".gallery");
+  const newFigure = document.createElement("figure");
+  const newImage = document.createElement("img");
+  const newCaption = document.createElement("figcaption");
 
+  const src = imageUrl?.startsWith('http')
+    ? imageUrl
+    : `${window.API_BASE}${imageUrl}`;
+
+  newImage.src = src;
+  newImage.alt = title || '';
+  newCaption.textContent = title || '';
+
+  newFigure.appendChild(newImage);
+  newFigure.appendChild(newCaption);
+  galleryContent.appendChild(newFigure);
 };
+
 
 // Fonction pour récupérer les projets depuis l'API et les ajouter dans la galerie
 const fetchProjects = async () => {
     // Récupérer les projets depuis l'API
-    const response = await fetch("http://localhost:5678/api/works");
+    const response = await fetch(`${window.API_BASE}/api/works`);
     const allProjects = await response.json();
     
     // Ajouter chaque projet dans la galerie en appelant la fonction addProject
@@ -62,7 +67,7 @@ const applyCategoryFilter = async (id, event) => {
     event.target.classList.add('active');
 
     // Récupérer tous les projets depuis l'API
-    const response = await fetch("http://localhost:5678/api/works");
+    const response = await fetch(`${window.API_BASE}/api/works`);
     const allProjects = await response.json();
 
     // Filtrer les projets en fonction de l'ID de la catégorie sélectionnée
@@ -100,7 +105,7 @@ const fetchCategories = async () => {
     addCategory(0, "Tous");
     
     // Récupérer les catégories depuis l'API
-    const response = await fetch("http://localhost:5678/api/categories");
+    const response = await fetch(`${window.API_BASE}/api/categories`);
     const allCategories = await response.json();
     
     // Ajouter chaque catégorie dans le filtre
@@ -192,14 +197,14 @@ closeSecondModal.addEventListener('click', e => {
 
 
 // Définition de l'URL de l'API
-const apiUrl = "http://localhost:5678/api/works/";
+const apiUrl = `${window.API_BASE}/api/works/`;
 
 // Fonction pour ajouter une image dans la galerie
 const addImageModal = async (imageUrl) => {
     // Récupérer le token de l'utilisateur
     const token = localStorage.getItem("token");
     // Envoyer une requête POST à l'API avec l'URL de l'image
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`${window.API_BASE}/api/works`, {
         method: "POST",
         headers: {
             "Accept": "application/json",
@@ -217,7 +222,7 @@ const deleteProject = async (id) => {
     // Récupérer le token de l'utilisateur
     const token = localStorage.getItem("token");
     // Envoyer une requête DELETE à l'API avec l'ID du projet
-    const response = await fetch(apiUrl + id, {
+    const response = await fetch(`${window.API_BASE}/api/works/${id}`, {
         method: "DELETE",
         headers: {
             "Accept": "application/json",
@@ -231,60 +236,65 @@ const deleteProject = async (id) => {
 
 
 // Ajouter un projet à la galerie
-const addProjectModal = ({ imageUrl, id }) => {
-    // Créer les éléments HTML
-    const modalGallery = document.querySelector(".modal_gallery");
-    const imgContent = document.createElement("div");
-    const image = document.createElement("img");
-    const textModal = document.createElement("p");
-    const contentIconMove = document.createElement("span");
-    const contentIconDelete = document.createElement("span");
-    const iconMove = document.createElement("i");
-    const iconDelete = document.createElement("i");
+const addProjectModal = ({ imageUrl, id, title }) => {
+  const modalGallery = document.querySelector(".modal_gallery");
 
-    // Ajouter les attributs et le contenu aux éléments
-    imgContent.classList.add("content_img");
-    image.src = imageUrl;
-    textModal.innerText = 'éditer';
-    contentIconMove.classList.add("content-icons");
-    contentIconDelete.classList.add("content_delete");
-    contentIconDelete.setAttribute("data-projectId", id);
-    iconMove.classList.add("fa-solid", "fa-arrows-up-down-left-right");
-    iconDelete.classList.add("fa-solid", "fa-trash-can");
+  const imgContent = document.createElement("div");
+  const image = document.createElement("img");
+  const textModal = document.createElement("p");
+  const contentIconMove = document.createElement("span");
+  const contentIconDelete = document.createElement("span");
+  const iconMove = document.createElement("i");
+  const iconDelete = document.createElement("i");
 
-    // Ajouter les éléments au DOM
-    contentIconMove.appendChild(iconMove);
-    contentIconDelete.appendChild(iconDelete);
-    imgContent.appendChild(image);
-    imgContent.appendChild(textModal);
-    imgContent.appendChild(contentIconMove);
-    imgContent.appendChild(contentIconDelete);
-    modalGallery.appendChild(imgContent);
+  imgContent.classList.add("content_img");
 
-    // Ajouter un gestionnaire d'événement pour le bouton de suppression
-    contentIconDelete.addEventListener('click', (e) => {
-        const projectId = e.currentTarget.getAttribute("data-projectId");
-        deleteProject(projectId);
-        console.log(projectId);
-    });
-};
+  const src = imageUrl?.startsWith('http')
+    ? imageUrl
+    : `${window.API_BASE}${imageUrl}`;
 
-// Récupérer et afficher les projets dans le modal
-async function fetchAndDisplayProjects() {
-    try {
-        const response = await fetch(apiUrl);
-        const allProjects = await response.json();
-        console.log("allProjects", allProjects);
-        allProjects.forEach((project) => {
-            addProjectModal(project);
-        });
-    } catch (error) {
-        console.error(error);
+  image.src = src;
+  image.alt = title || '';
+
+  textModal.innerText = 'éditer';
+  contentIconMove.classList.add("content-icons");
+  contentIconDelete.classList.add("content_delete");
+  contentIconDelete.setAttribute("data-projectId", id);
+  iconMove.classList.add("fa-solid", "fa-arrows-up-down-left-right");
+  iconDelete.classList.add("fa-solid", "fa-trash-can");
+
+  contentIconMove.appendChild(iconMove);
+  contentIconDelete.appendChild(iconDelete);
+  imgContent.appendChild(image);
+  imgContent.appendChild(textModal);
+  imgContent.appendChild(contentIconMove);
+  imgContent.appendChild(contentIconDelete);
+  modalGallery.appendChild(imgContent);
+
+  // suppression
+  contentIconDelete.addEventListener('click', async (e) => {
+    const projectId = e.currentTarget.getAttribute("data-projectId");
+    const res = await deleteProject(projectId);
+    // si OK, retire l’élément et rafraîchis la galerie principale
+    if (res && !res.error) {
+      imgContent.remove();
+      await refreshMainGallery();
     }
-}
+  });
+};
 
 // Appeler la fonction pour récupérer et afficher les projets
 fetchAndDisplayProjects();
+
+async function refreshMainGallery() {
+  const response = await fetch(`${window.API_BASE}/api/works`);
+  const allProjects = await response.json();
+
+  const galleryContent = document.querySelector(".gallery");
+  galleryContent.innerHTML = "";
+  allProjects.forEach(({ title, imageUrl }) => addProject(title, imageUrl));
+}
+
 
 // Configurer l'écouteur d'événements pour le bouton Ajouter afin d'afficher le modal
 function setupAddButtonEventListener() {
@@ -341,7 +351,7 @@ async function addNewProject(dataForm) {
     // Récupérer le token stocké dans le localStorage
     const token = localStorage.getItem("token");
     // Définir l'URL de l'API
-    const url = "http://localhost:5678/api/works";
+    const url = `${window.API_BASE}/api/works`;
 
     try {
         // Envoyer une requête POST à l'API avec l'objet FormData et le token d'authentification
@@ -363,20 +373,26 @@ async function addNewProject(dataForm) {
 
 // Fonction pour configurer l'écouteur d'événements pour la soumission du formulaire d'ajout de projet
 function setupAddProjectForm() {
-    // Sélectionner le bouton d'ajout de projet
-    const btnAddProject = document.querySelector('#btnAddProject');
+  const btnAddProject = document.querySelector('#btnAddProject');
 
-    // Ajouter un écouteur d'événements pour le bouton d'ajout de projet
-    btnAddProject.addEventListener('click', async (e) => {
-        // Empêcher l'action par défaut du bouton
-        e.preventDefault();
-        // Créer un objet FormData à partir du formulaire
-        const dataForm = addProjectForm();
-        // Envoyer les données du formulaire à l'API et récupérer la réponse
-        const response = await addNewProject(dataForm);
-        // Afficher la réponse de l'API dans la console
-        console.log(response);
-    });
+  btnAddProject.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const dataForm = addProjectForm();
+    const res = await addNewProject(dataForm);
+
+    if (res && !res.error) {
+      // rafraîchis la modale
+      document.querySelector(".modal_gallery").innerHTML = "";
+      const r = await fetch(`${window.API_BASE}/api/works`);
+      const all = await r.json();
+      all.forEach(addProjectModal);
+
+      // rafraîchis la galerie principale
+      await refreshMainGallery();
+    } else {
+      console.error('Erreur ajout projet', res);
+    }
+  });
 }
 
 // Appeler la fonction pour configurer l'écouteur d'événements pour la soumission du formulaire d'ajout de projet

@@ -1,6 +1,3 @@
-// URL de l'API pour la connexion des utilisateurs
-const urlApi = "http://localhost:5678/api/users/login";
-
 // Récupération des éléments du formulaire de connexion
 const loginForm = document.querySelector('form');
 const emailInput = document.querySelector('#email');
@@ -24,36 +21,33 @@ async function handleSubmit(event) {
 
 // Fonction pour envoyer les données de connexion à l'API et vérifier la réponse
 async function fetchLoginData(email, password) {
-    try {
-        const response = await fetch(urlApi, { // Envoie une requête POST à l'URL de l'API avec les données de connexion
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-        });
-        if (response.ok) { // Vérifie si la réponse du serveur est OK (200)
-            const data = await response.json(); // Transforme la réponse en objet JSON
-            if (data && data.token) { // Vérifie si les données de connexion sont valides et si le token est présent
-                tokenRegister(data); // Appelle la fonction tokenRegister pour enregistrer le token dans le localStorage
-                window.location.href = "index.html"; // Redirige vers la page index.html en cas de connexion réussie
-            } else {
-                showError('Les informations de connexion sont incorrectes.'); // Affiche un message d'erreur si les informations de connexion sont incorrectes
-                console.log('Échec de la connexion. Les informations de connexion sont incorrectes.');
-            }
-        } else {
-            showError('Échec de la connexion. Les informations de connexion sont incorrectes.'); // Affiche un message d'erreur si la réponse du serveur n'est pas OK
-            console.log('Échec de la connexion. Les informations de connexion sont incorrectes.');
-        }
-    } catch (error) {
-        showError('Échec de la connexion. Erreur de connexion à l\'API.'); // Affiche un message d'erreur en cas d'erreur de connexion à l'API
-        console.log('Échec de la connexion. Erreur de connexion à l\'API.');
+  try {
+    const response = await fetch(`${window.API_BASE}/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      showError('Échec de la connexion. Les informations de connexion sont incorrectes.');
+      return;
     }
+
+    const data = await response.json();
+    if (data && data.token) {
+      localStorage.setItem('token', data.token);
+      window.location.href = "index.html";
+    } else {
+      showError('Les informations de connexion sont incorrectes.');
+    }
+  } catch (err) {
+    showError('Échec de la connexion. Erreur de connexion à l’API.');
+  }
 }
+
 
 // Fonction pour afficher les messages d'erreur dans le formulaire
 function showError(errorMessage) {

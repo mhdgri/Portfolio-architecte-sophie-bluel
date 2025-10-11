@@ -7,9 +7,6 @@ const swaggerUi = require('swagger-ui-express')
 const yaml = require('yamljs')
 const swaggerDocs = yaml.load('swagger.yaml')
 const app = express()
-const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || '*';
-
-const cors = require('cors');
 
 app.use(cors({
   origin: [

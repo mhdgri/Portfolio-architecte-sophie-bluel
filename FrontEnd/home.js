@@ -283,9 +283,6 @@ const addProjectModal = ({ imageUrl, id, title }) => {
   });
 };
 
-// Appeler la fonction pour récupérer et afficher les projets
-fetchAndDisplayProjects();
-
 async function refreshMainGallery() {
   const response = await fetch(`${window.API_BASE}/api/works`);
   const allProjects = await response.json();

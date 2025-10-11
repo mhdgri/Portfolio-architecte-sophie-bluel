@@ -7,20 +7,20 @@ const swaggerUi = require('swagger-ui-express')
 const yaml = require('yamljs')
 const swaggerDocs = yaml.load('swagger.yaml')
 const app = express()
+const cors = require('cors');
 const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || '*';
+
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin || ALLOWED_ORIGIN === '*' || origin === ALLOWED_ORIGIN) {
-      return cb(null, true);
-    }
+    if (!origin || ALLOWED_ORIGIN === '*' || origin === ALLOWED_ORIGIN) return cb(null, true);
     return cb(new Error('Not allowed by CORS'));
   },
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
   credentials: true
 }));
-
 app.options('*', cors());
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet({

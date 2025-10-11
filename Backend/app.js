@@ -9,13 +9,14 @@ const swaggerDocs = yaml.load('swagger.yaml')
 const app = express()
 const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || '*';
 
+const cors = require('cors');
+
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || ALLOWED_ORIGIN === '*' || origin === ALLOWED_ORIGIN) return cb(null, true);
-    return cb(new Error('Not allowed by CORS'));
-  },
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
+  origin: [
+    'https://front-8rrqhfrak-guerrouis-projects-7afb0b61.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ],
   credentials: true
 }));
 app.options('*', cors());

@@ -1,0 +1,7 @@
+{
+  "projects": [],
+  "builds": [{ "src": "FrontEnd/**", "use": "@vercel/static" }],
+  "routes": [
+    { "src": "/(.*)", "dest": "FrontEnd/$1" }
+  ]
+}

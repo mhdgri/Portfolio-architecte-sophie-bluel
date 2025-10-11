@@ -1,1 +1,1 @@
-window.API_BASE = 'https://sophie-bluel-backend-1lp2m9um2-guerrouis-projects-7afb0b61.vercel.app';
+window.API_BASE = 'https://portfolio-architecte-sophie-bluel-production.up.railway.app';

@@ -10,7 +10,7 @@ const app = express()
 
 app.use(cors({
   origin: [
-    'https://front-o26f7nqci-guerrouis-projects-7afb0b61.vercel.app/',
+    'https://front-bljs483n6-guerrouis-projects-7afb0b61.vercel.app',
     'http://localhost:5173',
     'http://localhost:3000'
   ],

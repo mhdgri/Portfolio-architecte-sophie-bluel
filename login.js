@@ -23,9 +23,9 @@ async function handleSubmit(event) {
 // Fonction pour envoyer les données de connexion à l'API et vérifier la réponse
 async function fetchLoginData(email, password) {
   console.log("URL API:", window.API_BASE);
-  console.log("URL complete:", `${window.API_BASE}/api/users/login`);
+  console.log("URL complete:", `${window.API_BASE}/users/login`);
   try {
-    const response = await fetch(`${window.API_BASE}/api/users/login`, {
+    const response = await fetch(`${window.API_BASE}/users/login`, {
       // Envoie une requête POST à l'URL de l'API avec les données de connexion
       method: "POST",
       headers: {

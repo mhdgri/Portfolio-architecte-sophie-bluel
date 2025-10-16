@@ -58,6 +58,21 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Route de base pour Railway (doit être en dernier)
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: 'Sophie Bluel API is running',
+    endpoints: {
+      health: '/health',
+      works: '/api/works',
+      categories: '/api/categories',
+      users: '/api/users',
+      docs: '/api-docs'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Gestion d'erreur globale
 app.use((error, req, res, next) => {
   console.error('❌ Error:', error);

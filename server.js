@@ -49,8 +49,9 @@ server.on('listening', () => {
 	console.log('Listening on ' + bind);
 });
 
-server.listen(port, () => {
+server.listen(port, '0.0.0.0', () => {
 	console.log(`Server is running on port ${port}`);
 	console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+	console.log(`Server bound to 0.0.0.0:${port}`);
 });
 

@@ -2,7 +2,7 @@
 const loginForm = document.querySelector("form");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
-const errorElement = document.createElement("p"); // Crée un élément 'p' pour afficher le message d'erreur
+const errorElement = document.createElement("p");
 
 // Ajout d'un écouteur d'événement pour la soumission du formulaire
 loginForm.addEventListener("submit", handleSubmit);
@@ -10,23 +10,21 @@ loginForm.addEventListener("submit", handleSubmit);
 // Fonction pour gérer la soumission du formulaire de connexion
 async function handleSubmit(event) {
   event.preventDefault();
-  const email = emailInput.value.trim(); // Trim l'email pour enlever les espaces en début et fin de chaîne
-  const password = passwordInput.value.trim(); // Trim le mot de passe pour enlever les espaces en début et fin de chaîne
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
   if (email === "" || password === "") {
-    // Vérifie si les champs email et mot de passe sont vides
-    showError("Veuillez remplir tous les champs."); // Affiche un message d'erreur si les champs sont vides
+    showError("Veuillez remplir tous les champs.");
     return;
   }
-  await fetchLoginData(email, password); // Appelle la fonction fetchLoginData pour envoyer les données de connexion au serveur
+  await fetchLoginData(email, password);
 }
 
-// Fonction pour envoyer les données de connexion à l'API et vérifier la réponse
+// Fonction pour envoyer les données de connexion à l'API
 async function fetchLoginData(email, password) {
   console.log("URL API:", window.API_BASE);
   console.log("URL complete:", `${window.API_BASE}/users/login`);
   try {
     const response = await fetch(`${window.API_BASE}/users/login`, {
-      // Envoie une requête POST à l'URL de l'API avec les données de connexion
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -38,44 +36,37 @@ async function fetchLoginData(email, password) {
       }),
     });
     console.log("Response status:", response.status);
-    console.log("Response:", response);
+    
     if (response.ok) {
-      // Vérifie si la réponse du serveur est OK (200)
-      const data = await response.json(); // Transforme la réponse en objet JSON
+      const data = await response.json();
       if (data && data.token) {
-        // Vérifie si les données de connexion sont valides et si le token est présent
-        tokenRegister(data); // Appelle la fonction tokenRegister pour enregistrer le token dans le localStorage
-        window.location.href = "index.html"; // Redirige vers la page index.html en cas de connexion réussie
+        tokenRegister(data);
+        window.location.href = "index.html";
       } else {
-        showError("Les informations de connexion sont incorrectes."); // Affiche un message d'erreur si les informations de connexion sont incorrectes
-        console.log(
-          "Échec de la connexion. Les informations de connexion sont incorrectes."
-        );
+        showError("Les informations de connexion sont incorrectes.");
       }
     } else {
-      showError(
-        "Échec de la connexion. Les informations de connexion sont incorrectes."
-      ); // Affiche un message d'erreur si la réponse du serveur n'est pas OK
-      console.log(
-        "Échec de la connexion. Les informations de connexion sont incorrectes."
-      );
+      const errorText = await response.text();
+      console.error("Erreur réponse:", errorText);
+      showError("Échec de la connexion. Les informations de connexion sont incorrectes.");
     }
   } catch (error) {
-    showError("Échec de la connexion. Erreur de connexion à l'API."); // Affiche un message d'erreur en cas d'erreur de connexion à l'API
-    console.log("Échec de la connexion. Erreur de connexion à l'API.");
+    console.error("Erreur complète:", error);
+    showError("Échec de la connexion. Erreur de connexion à l'API.");
   }
 }
 
-// Fonction pour afficher les messages d'erreur dans le formulaire
+// Fonction pour afficher les messages d'erreur
 function showError(errorMessage) {
-  errorElement.textContent = errorMessage; // Affiche le message d'erreur dans l'élément 'p' créé précédemment
+  errorElement.textContent = errorMessage;
+  errorElement.style.color = "red";
+  errorElement.style.marginTop = "10px";
   if (!loginForm.contains(errorElement)) {
-    // Vérifie si l'élément 'p' n'est pas déjà ajouté au formulaire
-    loginForm.appendChild(errorElement); // Ajoute l'élément 'p' contenant le message d'erreur au formulaire
+    loginForm.appendChild(errorElement);
   }
 }
 
-// Fonction pour enregistrer le token dans le localStorage du navigateur
+// Fonction pour enregistrer le token dans le localStorage
 function tokenRegister(data) {
-  localStorage.setItem("token", data.token); // Enregistre le token dans le localStorage du navigateur
+  localStorage.setItem("token", data.token);
 }

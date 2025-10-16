@@ -1,6 +1,11 @@
 const http = require('http');
 const app = require('./app');
 
+// Logs de débogage pour Railway
+console.log('Starting server...');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('PORT:', process.env.PORT);
+
 const normalizePort = val => {
 	const port = parseInt(val, 10);
 
@@ -12,7 +17,7 @@ const normalizePort = val => {
 	}
 	return false;
 };
-const port = normalizePort(process.env.PORT ||'5678');
+const port = normalizePort(process.env.PORT || 3001);
 app.set('port', port);
 
 const errorHandler = error => {
@@ -44,5 +49,8 @@ server.on('listening', () => {
 	console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+server.listen(port, () => {
+	console.log(`Server is running on port ${port}`);
+	console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
 

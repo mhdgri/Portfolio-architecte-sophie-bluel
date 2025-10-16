@@ -3,7 +3,16 @@ const Works = db.works
 
 exports.findAll = async (req, res) =>  {
 	const works = await Works.findAll({include: 'category'});
-	return res.status(200).json(works);
+	
+	// Corriger les URLs des images pour utiliser le bon port/host
+	const correctedWorks = works.map(work => {
+		if (work.imageUrl && work.imageUrl.includes('localhost:5678')) {
+			work.imageUrl = work.imageUrl.replace('localhost:5678', `${req.get('host')}`);
+		}
+		return work;
+	});
+	
+	return res.status(200).json(correctedWorks);
 }
 
 exports.create = async (req, res) => {

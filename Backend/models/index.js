@@ -4,7 +4,7 @@ const {Sequelize}  = require("sequelize");
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './database.sqlite',
-  logging: false // Désactiver les logs SQL en production
+  logging: false
 })
 
 const db = {}
